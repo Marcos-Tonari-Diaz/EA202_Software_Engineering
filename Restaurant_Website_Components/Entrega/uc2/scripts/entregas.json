@@ -1,0 +1,39 @@
+{
+    "entregas":[
+        {
+            "numero_da_entrega": 125,
+            "pratos": [
+                {"name":"Pizza Mussarela", "quantity": 1},
+                {"name":"Coca 2L", "quantity": 1}
+            ],
+            "endereco": "RUA LACERDA 500, Campinas, SP",
+            "nome_cliente": "Pedro Dias",
+            "nome_entregador": "vazio",
+            "status": "pronto para entrega"
+        },
+        {
+            "numero_da_entrega": 126,
+            "pratos": [
+                {"name":"Hamburger", "quantity": 2},
+                {"name":"Fritas", "quantity": 2},
+                {"name":"Sorvete de Creme", "quantity": 1}
+            ],
+            "endereco": "RUA KENEDY 100, Campinas, SP",
+            "nome_cliente": "Fernando Dias",
+            "nome_entregador": "vazio",
+            "status": "pronto para entrega"
+        },
+        {
+            "numero_da_entrega": 127,
+            "pratos": [
+                {"name":"Pizza Calabresa", "quantity": 1},
+                {"name":"Pizza Mussarela", "quantity": 1},
+                {"name":"Coca 2L", "quantity": 2}
+            ],
+            "endereco": "RUA LATTES 900, Campinas, SP",
+            "nome_cliente": "Luis Fernando",
+            "nome_entregador": "vazio",
+            "status": "pronto para entrega"
+        }
+        ]
+}

@@ -1,0 +1,26 @@
+{
+    "pratos":[
+        {"name":"Pizza Mussarela", 
+            "description":"Assada no forno a lenha, molho de tomate da casa e coberta de mussarela especial",
+             "price": 49.99, "category": "massas", "image_path": "pizzaMussarela.jpeg"},
+        {"name":"Pizza Calabresa", 
+            "description":"Assada no forno a lenha, molho de tomate da casa e coberta de mussarela e calabresa", 
+            "price": 49.99, "category": "massas", "image_path": "pizza.jpeg"},
+        {"name":"Lasanha Bolognesa", 
+            "description":"Carne moida, molho de tomate da casa e tempero especial", 
+            "price": 39.99, "category": "massas", "image_path": "lasagna.jpeg"},
+        {"name":"Lasanha Quatro Queijos", 
+            "description":"Quatro queijos!", 
+            "price": 34.99, "category": "massas", "image_path": "lasanhaQuatro.jpeg"},
+        {"name":"Hamburger", 
+            "description":"Feita no forno a lenha, molho de tomate da casa e coberta de mussarela especial", 
+            "price": 34.99, "category": "lanches", "image_path": "hamburger.jpeg"},
+        {"name":"File de frango", 
+            "description":"Feita no forno a lenha, molho de tomate da casa e coberta de mussarela especial", 
+            "price": 24.99, "category": "carnes", "image_path": "frango_grelhado.jpeg"},
+        {"name":"File mignon", 
+            "description":"Feita no forno a lenha, molho de tomate da casa e coberta de mussarela especial", 
+            "price": 34.99, "category": "carnes", "image_path": "mignon.jpeg"},
+        {"name":"Sorvete de creme", "description":"Feita no forno a lenha, molho de tomate da casa e coberta de mussarela especial", "price": 14.99, "category": "sobremesas", "image_path": "sorvete_creme.jpeg"}
+    ]
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet" href="http://localhost:3000/stylesheets/main.css">
+</head>
+<body>
+
+<h1>Manipulador de Recursos</h1>
+
+<br>
+    <!-- renderiza o componente App do Vue -->
+    <div id="app">
+		<div id="insercao">
+			<h3>Inserção e Update de Alunos</h3>
+			<input type="text" v-model="ra" size=10 placeholder="RA">
+			<input type="text" v-model="nome" size=10 placeholder="NOME">
+			<input type="text" v-model="curso" size=10 placeholder="CURSO">
+			<br>
+			<button v-on:click="doInsert()">Insert</button> &nbsp;
+			<button v-on:click="doUpdate()">Update</button> &nbsp;
+		</div>
+		<br>
+		<div id="consulta">
+			<h3>Consulta e Declaração de Alunos</h3>
+			<input type="text" v-model="ra" size=10 placeholder="RA">
+			<br>
+			<button v-on:click="doConsulta()">Consulta</button> &nbsp;
+			<button v-on:click="doDelete2()">Delete</button> &nbsp;
+		</div>
+		<br>
+
+		<table>
+			<thead>
+				<td id="tablehead" v-for="attribute in tableColumns"> 
+					{{attribute | upperCase}} 
+				</td>	
+			</thead>
+			<tbody v-if="(ra==null || ra.length==0) && tabelaData.length>0">				
+				<tr 
+				is="row"
+				v-for="entry in tabelaData"
+				v-bind:columns="tableColumns"
+				v-bind:entry="entry"
+				>
+				</tr>
+			</tbody>
+			<tbody v-if="ra!= null && ra.length==6">				
+				<tr 
+				is="row"
+				v-bind:columns="tableColumns"
+				v-bind:entry="findTableEntry()"
+				>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+<script>
+	Vue.component('row', {
+		props: ['columns', 'entry'],
+		template: 
+			`<tr>
+				<td v-for="attribute in columns"> 
+					{{entry[attribute]}} 
+				</td>	
+			</tr>
+			`
+	})
+	var app = new Vue({
+		el: '#app',
+		data: {
+		      recurso: '/alunos',
+		      repr: null,
+		      codigo: null,
+			  payload: null,
+			  //segunda versao
+			  ra: null,
+			  nome: null,
+			  curso: null,
+			  tableColumns: ["ra", "nome", "curso"],
+			  tabelaData: []
+		},
+		methods: {
+			doInsert : function(){
+				let requestJSON = {ra: this.ra, nome: this.nome, curso: this.curso};	
+				axios
+				.post(this.recurso, requestJSON)
+				.then((response) => {
+					this.payload = response.data;
+					this.codigo = response.status;
+				})
+				.catch(error => {
+					this.payload = response.data;
+					this.codigo = response.status;
+				})
+			},
+			doUpdate : function(){
+				let recursoEndpoint = "";
+				if (this.ra!=null){					recursoEndpoint = this.recurso+"/"+this.ra;
+				}
+				else{
+					recursoEndpoint = this.recurso;
+				}
+				let requestJSON = {ra: this.ra, nome: this.nome, curso: this.curso};	
+				axios
+				.put(recursoEndpoint, requestJSON)
+				.then((response) => {
+					this.payload = response.data;
+					this.codigo = response.status;
+				})
+				.catch(error => {
+					this.payload = response.data;
+					this.codigo = response.status;
+				})
+			},
+			doConsulta : function(){
+				let recursoEndpoint = "";
+				if (this.ra!=null && this.ra.length==6){
+					recursoEndpoint = this.recurso+"/"+this.ra;
+				}
+				else{
+					recursoEndpoint = this.recurso;
+				}
+				axios
+				.get(recursoEndpoint)
+				.then((response) => {
+					this.payload = response.data;
+					this.codigo = response.status;
+					this.tabelaData = response.data["alunos"];
+					if (response.data["alunos"].length==1){
+						this.nome = response.data["alunos"][0]["nome"];
+						this.curso = response.data["alunos"][0]["curso"];
+					}
+				})
+				.catch(error => {
+					this.payload = response.data;
+					this.codigo = response.status;
+				})
+			},
+			doDelete2 : function(){
+				let recursoEndpoint = this.recurso+"/"+this.ra;
+				axios
+				.delete(recursoEndpoint)
+				.then((response) => {
+					this.payload = response.data;
+					this.codigo = response.status;
+				})
+				.catch(error => {
+					this.payload = response.data;
+					this.codigo = response.status;
+				})
+			},
+			findTableEntry: function(){
+				return this.tabelaData.find(element => element["ra"] == this.ra);
+			}
+		},	
+		filters: {
+			upperCase: function (value) {
+				if (!value) return ''
+				return value.toUpperCase();
+			}
+		}
+	})
+  </script>
+</body>
+</html>
+
